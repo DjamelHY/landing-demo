@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warung Pintar – Kasir dan stok toko dalam satu aplikasi</title>
+<meta name="description" content="Catat penjualan, pantau stok, dan lihat untung harian dari ponsel. Coba gratis 14 hari.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<!-- Google Tag Manager: ganti GTM-XXXXXXX dengan ID milik klien, lalu hapus tanda komentar
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+-->
+<style>
+:root{--bg:#f2f6f3;--ink:#10302a;--muted:#4d6660;--teal:#0e5a4b;--gold:#f2b01e;--paper:#fffdf6;--line:#cfdcd5}
+@media (prefers-color-scheme:dark){:root{--bg:#0c1f1b;--ink:#eaf3ee;--muted:#9bb5ac;--teal:#3fb597;--line:#24433b}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.1;margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header{padding:18px 0}
+.brand{font:800 1.25rem 'Bricolage Grotesque',sans-serif;text-decoration:none}
+.hero{display:grid;gap:36px;padding:24px 0 64px;align-items:center}
+@media(min-width:820px){.hero{grid-template-columns:1.15fr .85fr;padding-top:48px}}
+h1{font-size:clamp(2.2rem,6vw,3.7rem);font-weight:800;letter-spacing:-.02em}
+.lead{color:var(--muted);font-size:1.15rem;max-width:34em;margin:18px 0 26px}
+.btn{display:inline-block;background:var(--gold);color:#10302a;border:0;border-radius:10px;padding:14px 26px;font:700 1.05rem 'Bricolage Grotesque',sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover{filter:brightness(1.06)}
+.note{font-size:.92rem;color:var(--muted);margin-top:12px}
+/* struk kasir */
+.receipt{background:var(--paper);color:#222;font:500 .95rem/1.7 ui-monospace,Menlo,monospace;padding:22px 22px 30px;max-width:340px;margin:0 auto;transform:rotate(1.8deg);box-shadow:0 14px 30px rgba(0,0,0,.16);
+-webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 10px repeat-x;mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 10px repeat-x}
+.receipt h3{font-size:1.1rem;text-align:center;margin-bottom:8px;color:#10302a}
+.receipt .r{display:flex;justify-content:space-between;gap:12px}
+.receipt hr{border:0;border-top:2px dashed #bbb;margin:10px 0}
+.receipt .tot{font-weight:700;font-size:1.1rem}
+.receipt .low{background:#ffe3a3;padding:2px 6px;margin-top:8px;font-size:.85rem}
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:28px;max-width:20em}
+.feat{display:grid;gap:28px}
+@media(min-width:720px){.feat{grid-template-columns:repeat(3,1fr)}}
+.feat h3{font-size:1.25rem;margin-bottom:8px}
+.feat p{margin:0;color:var(--muted)}
+.quotes{display:grid;gap:28px}
+@media(min-width:720px){.quotes{grid-template-columns:1fr 1fr}}
+blockquote{margin:0;padding-left:18px;border-left:4px solid var(--gold);font:500 1.15rem/1.5 'Bricolage Grotesque',sans-serif}
+cite{display:block;margin-top:10px;font:400 .95rem Inter,sans-serif;color:var(--muted);font-style:normal}
+.signup{background:var(--teal);color:#fff;border-radius:18px;padding:34px 22px;margin:20px 0 56px}
+@media(min-width:720px){.signup{padding:48px}}
+.signup h2{margin-bottom:8px}
+.signup p{margin:0 0 22px;opacity:.9}
+form{display:grid;gap:14px;max-width:460px}
+label{font-weight:500;font-size:.95rem}
+input{width:100%;margin-top:6px;padding:13px 14px;border:2px solid transparent;border-radius:10px;font:inherit;color:#10302a;background:#fff}
+input:focus{border-color:var(--gold);outline:0}
+.ok{display:none;background:#fff;color:#10302a;padding:16px;border-radius:10px;font-weight:500}
+footer{padding:0 0 40px;color:var(--muted);font-size:.9rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><a class="brand" href="#">Warung Pintar</a></header>
+
+<main>
+<div class="hero">
+ <div>
+  <h1>Kasir dan stok toko Anda, rapi dalam satu aplikasi.</h1>
+  <p class="lead">Catat penjualan, pantau stok, dan lihat untung harian langsung dari ponsel. Dibuat untuk pemilik usaha kecil dan menengah yang ingin lebih banyak pelanggan dan lebih sedikit repot.</p>
+  <a class="btn" href="#daftar" id="cta-hero" data-track="daftar_trial_click">Daftar Trial</a>
+  <p class="note">Gratis 14 hari. Tanpa kartu kredit.</p>
+ </div>
+ <div class="receipt" aria-label="Contoh struk penjualan">
+  <h3>TOKO BU SARI</h3>
+  <div class="r"><span>Beras 5 kg</span><span>68.000</span></div>
+  <div class="r"><span>Minyak 2 L</span><span>36.000</span></div>
+  <div class="r"><span>Gula 1 kg</span><span>17.500</span></div>
+  <hr>
+  <div class="r tot"><span>Total</span><span>121.500</span></div>
+  <div class="low">Stok gula tinggal 3. Pesan lagi?</div>
+ </div>
+</div>
+
+<section aria-labelledby="fitur">
+ <h2 id="fitur">Semua yang dibutuhkan toko kecil untuk berjualan lebih lancar</h2>
+ <div class="feat">
+  <div><h3>Catat penjualan dalam hitungan detik</h3><p>Pilih barang, ketuk bayar, struk langsung siap. Tidak perlu buku catatan lagi.</p></div>
+  <div><h3>Tahu kapan stok menipis</h3><p>Aplikasi memberi tahu sebelum barang laris Anda habis, jadi tidak ada pelanggan yang pulang kecewa.</p></div>
+  <div><h3>Untung harian otomatis</h3><p>Lihat pemasukan dan keuntungan hari ini di satu layar, tanpa menghitung manual.</p></div>
+ </div>
+</section>
+
+<section aria-labelledby="ulasan">
+ <h2 id="ulasan">Kata pemilik toko yang sudah mencoba</h2>
+ <div class="quotes">
+  <blockquote>“Dulu tutup toko masih harus menghitung sampai malam. Sekarang selesai dalam lima menit.”<cite>Sari, pemilik toko kelontong (contoh testimoni)</cite></blockquote>
+  <blockquote>“Penjualan naik karena stok barang laris tidak pernah kosong lagi.”<cite>Budi, pemilik kedai kopi (contoh testimoni)</cite></blockquote>
+ </div>
+</section>
+
+<div class="signup" id="daftar">
+ <h2>Mulai coba gratis hari ini</h2>
+ <p>Isi data di bawah. Kami kirim petunjuk memulai ke email Anda.</p>
+ <!-- Mailchimp: ganti action dengan URL form dari akun klien (Audience > Signup forms > Embedded forms).
+      Nama field Mailchimp biasanya FNAME, EMAIL, PHONE. Hapus preventDefault di script agar form benar-benar terkirim. -->
+ <form id="trial-form" action="https://example.us1.list-manage.com/subscribe/post?u=XXXX&id=YYYY" method="post" novalidate>
+  <label>Nama<input type="text" name="FNAME" autocomplete="name" required></label>
+  <label>Email<input type="email" name="EMAIL" autocomplete="email" required></label>
+  <label>Nomor telepon<input type="tel" name="PHONE" autocomplete="tel" inputmode="tel" required></label>
+  <button class="btn" type="submit" id="cta-form" data-track="daftar_trial_submit">Daftar Trial</button>
+ </form>
+ <div class="ok" id="ok" role="status">Terima kasih! Cek email Anda untuk langkah berikutnya.</div>
+</div>
+</main>
+
+<footer>Halaman contoh (demo) untuk portofolio. Nama produk dan testimoni adalah fiktif.</footer>
+</div>
+
+<script>
+window.dataLayer = window.dataLayer || [];
+// Pelacakan klik tombol "Daftar Trial" untuk Google Tag Manager
+document.querySelectorAll('[data-track]').forEach(function(el){
+  el.addEventListener('click', function(){
+    window.dataLayer.push({event: el.dataset.track, button_id: el.id});
+  });
+});
+// Demo: validasi sederhana dan pesan sukses. Untuk produksi, hapus baris preventDefault agar Mailchimp menerima data.
+document.getElementById('trial-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  var f = e.target;
+  if(!f.checkValidity()){ f.reportValidity(); return; }
+  window.dataLayer.push({event:'trial_signup_success'});
+  f.style.display='none';
+  document.getElementById('ok').style.display='block';
+});
+</script>
+</body>
+</html>
