@@ -11,25 +11,30 @@
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
 -->
 <style>
-:root{--bg:#f2f6f3;--ink:#10302a;--muted:#4d6660;--teal:#0e5a4b;--gold:#f2b01e;--paper:#fffdf6;--line:#cfdcd5}
-@media (prefers-color-scheme:dark){:root{--bg:#0c1f1b;--ink:#eaf3ee;--muted:#9bb5ac;--teal:#3fb597;--line:#24433b}}
+:root{--bg:#f2f6f3;--ink:#10302a;--muted:#4d6660;--teal:#0e5a4b;--gold:#f2b01e;--paper:#fffdf6;--line:#cfdcd5;--card:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#0c1f1b;--ink:#eaf3ee;--muted:#9bb5ac;--line:#24433b;--card:#12302a}}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 Inter,system-ui,sans-serif}
-h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.1;margin:0}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.12;margin:0}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
-header{padding:18px 0}
+.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
 .brand{font:800 1.25rem 'Bricolage Grotesque',sans-serif;text-decoration:none}
-.hero{display:grid;gap:36px;padding:24px 0 64px;align-items:center}
-@media(min-width:820px){.hero{grid-template-columns:1.15fr .85fr;padding-top:48px}}
-h1{font-size:clamp(2.2rem,6vw,3.7rem);font-weight:800;letter-spacing:-.02em}
-.lead{color:var(--muted);font-size:1.15rem;max-width:34em;margin:18px 0 26px}
+nav{display:none;gap:24px;font-size:.95rem}
+nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--ink)}
+@media(min-width:760px){nav{display:flex}}
 .btn{display:inline-block;background:var(--gold);color:#10302a;border:0;border-radius:10px;padding:14px 26px;font:700 1.05rem 'Bricolage Grotesque',sans-serif;cursor:pointer;text-decoration:none}
 .btn:hover{filter:brightness(1.06)}
+.btn.sm{padding:9px 16px;font-size:.95rem}
+.btn.ghost{background:transparent;border:2px solid var(--ink);color:var(--ink)}
+.hero{display:grid;gap:36px;padding:40px 0 64px;align-items:center}
+@media(min-width:820px){.hero{grid-template-columns:1.15fr .85fr;padding-top:56px}}
+h1{font-size:clamp(2.2rem,6vw,3.7rem);font-weight:800;letter-spacing:-.02em}
+.lead{color:var(--muted);font-size:1.15rem;max-width:34em;margin:18px 0 26px}
 .note{font-size:.92rem;color:var(--muted);margin-top:12px}
-/* struk kasir */
 .receipt{background:var(--paper);color:#222;font:500 .95rem/1.7 ui-monospace,Menlo,monospace;padding:22px 22px 30px;max-width:340px;margin:0 auto;transform:rotate(1.8deg);box-shadow:0 14px 30px rgba(0,0,0,.16);
 -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 10px repeat-x;mask:linear-gradient(#000 0 0) top/100% calc(100% - 10px) no-repeat,conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 10px repeat-x}
 .receipt h3{font-size:1.1rem;text-align:center;margin-bottom:8px;color:#10302a}
@@ -37,39 +42,69 @@ h1{font-size:clamp(2.2rem,6vw,3.7rem);font-weight:800;letter-spacing:-.02em}
 .receipt hr{border:0;border-top:2px dashed #bbb;margin:10px 0}
 .receipt .tot{font-weight:700;font-size:1.1rem}
 .receipt .low{background:#ffe3a3;padding:2px 6px;margin-top:8px;font-size:.85rem}
-section{padding:56px 0;border-top:1px solid var(--line)}
-h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:28px;max-width:20em}
-.feat{display:grid;gap:28px}
-@media(min-width:720px){.feat{grid-template-columns:repeat(3,1fr)}}
-.feat h3{font-size:1.25rem;margin-bottom:8px}
+.strip{border-block:1px solid var(--line);padding:16px 0;color:var(--muted);font-size:.95rem}
+.strip .wrap{display:flex;flex-wrap:wrap;gap:8px 32px;justify-content:center}
+section{padding:64px 0}
+h2{font-size:clamp(1.7rem,4vw,2.4rem);margin-bottom:12px;max-width:20em}
+.sub{color:var(--muted);max-width:36em;margin:0 0 32px}
+.feat{display:grid;gap:30px 28px}
+@media(min-width:560px){.feat{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.feat{grid-template-columns:repeat(3,1fr)}}
+.feat h3{font-size:1.2rem;margin-bottom:6px;padding-top:12px;border-top:3px solid var(--gold)}
 .feat p{margin:0;color:var(--muted)}
+.steps{display:grid;gap:20px;counter-reset:s;padding:0;list-style:none}
+@media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--gold);color:#10302a;font:800 1.1rem 'Bricolage Grotesque',sans-serif;margin-bottom:12px}
+.steps h3{font-size:1.2rem;margin-bottom:6px}.steps p{margin:0;color:var(--muted)}
 .quotes{display:grid;gap:28px}
-@media(min-width:720px){.quotes{grid-template-columns:1fr 1fr}}
-blockquote{margin:0;padding-left:18px;border-left:4px solid var(--gold);font:500 1.15rem/1.5 'Bricolage Grotesque',sans-serif}
-cite{display:block;margin-top:10px;font:400 .95rem Inter,sans-serif;color:var(--muted);font-style:normal}
-.signup{background:var(--teal);color:#fff;border-radius:18px;padding:34px 22px;margin:20px 0 56px}
+@media(min-width:760px){.quotes{grid-template-columns:repeat(3,1fr)}}
+blockquote{margin:0;padding-left:18px;border-left:4px solid var(--gold);font:500 1.1rem/1.5 'Bricolage Grotesque',sans-serif}
+cite{display:block;margin-top:10px;font:400 .92rem Inter,sans-serif;color:var(--muted);font-style:normal}
+.plans{display:grid;gap:20px;align-items:stretch}
+@media(min-width:820px){.plans{grid-template-columns:repeat(3,1fr)}}
+.plan{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column}
+.plan.pick{border:3px solid var(--gold)}
+.plan h3{font-size:1.3rem}
+.price{font:800 2rem 'Bricolage Grotesque',sans-serif;margin:10px 0 4px}
+.price small{font:400 .95rem Inter,sans-serif;color:var(--muted)}
+.plan ul{margin:14px 0 22px;padding-left:20px;color:var(--muted);flex:1}
+.plan li{margin-bottom:6px}
+details{border-bottom:1px solid var(--line);padding:16px 0;max-width:720px}
+summary{cursor:pointer;font:700 1.1rem 'Bricolage Grotesque',sans-serif;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{margin:10px 0 0;color:var(--muted)}
+.signup{background:#0e5a4b;color:#fff;border-radius:18px;padding:34px 22px;margin:0 0 64px}
 @media(min-width:720px){.signup{padding:48px}}
 .signup h2{margin-bottom:8px}
-.signup p{margin:0 0 22px;opacity:.9}
+.signup p{margin:0 0 22px;opacity:.92}
 form{display:grid;gap:14px;max-width:460px}
 label{font-weight:500;font-size:.95rem}
 input{width:100%;margin-top:6px;padding:13px 14px;border:2px solid transparent;border-radius:10px;font:inherit;color:#10302a;background:#fff}
 input:focus{border-color:var(--gold);outline:0}
 .ok{display:none;background:#fff;color:#10302a;padding:16px;border-radius:10px;font-weight:500}
-footer{padding:0 0 40px;color:var(--muted);font-size:.9rem}
+footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--muted);font-size:.92rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+footer a{text-decoration:none;margin-right:16px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<header><a class="brand" href="#">Warung Pintar</a></header>
+<header class="top"><div class="wrap">
+ <a class="brand" href="#">Warung Pintar</a>
+ <nav aria-label="Menu utama"><a href="#fitur">Fitur</a><a href="#cara">Cara kerja</a><a href="#harga">Harga</a><a href="#faq">Tanya jawab</a></nav>
+ <a class="btn sm" href="#daftar" data-track="daftar_trial_click" id="cta-nav">Daftar Trial</a>
+</div></header>
 
 <main>
-<div class="hero">
+<div class="wrap hero">
  <div>
   <h1>Kasir dan stok toko Anda, rapi dalam satu aplikasi.</h1>
   <p class="lead">Catat penjualan, pantau stok, dan lihat untung harian langsung dari ponsel. Dibuat untuk pemilik usaha kecil dan menengah yang ingin lebih banyak pelanggan dan lebih sedikit repot.</p>
   <a class="btn" href="#daftar" id="cta-hero" data-track="daftar_trial_click">Daftar Trial</a>
+  <a class="btn ghost" href="#cara" style="margin-left:8px">Lihat cara kerja</a>
   <p class="note">Gratis 14 hari. Tanpa kartu kredit.</p>
  </div>
  <div class="receipt" aria-label="Contoh struk penjualan">
@@ -83,23 +118,67 @@ footer{padding:0 0 40px;color:var(--muted);font-size:.9rem}
  </div>
 </div>
 
-<section aria-labelledby="fitur">
- <h2 id="fitur">Semua yang dibutuhkan toko kecil untuk berjualan lebih lancar</h2>
+<div class="strip"><div class="wrap"><span>Jalan di ponsel, tablet, dan komputer</span><span>Tetap bisa mencatat saat internet putus</span><span>Data tersimpan aman dan otomatis</span></div></div>
+
+<section id="fitur"><div class="wrap">
+ <h2>Semua yang dibutuhkan toko kecil untuk berjualan lebih lancar</h2>
+ <p class="sub">Dari kasir sampai laporan, semuanya ada di satu tempat dan mudah dipakai tanpa pelatihan.</p>
  <div class="feat">
   <div><h3>Catat penjualan dalam hitungan detik</h3><p>Pilih barang, ketuk bayar, struk langsung siap. Tidak perlu buku catatan lagi.</p></div>
   <div><h3>Tahu kapan stok menipis</h3><p>Aplikasi memberi tahu sebelum barang laris Anda habis, jadi tidak ada pelanggan yang pulang kecewa.</p></div>
   <div><h3>Untung harian otomatis</h3><p>Lihat pemasukan dan keuntungan hari ini di satu layar, tanpa menghitung manual.</p></div>
+  <div><h3>Struk digital untuk pelanggan</h3><p>Kirim struk lewat WhatsApp atau cetak dengan printer Bluetooth.</p></div>
+  <div><h3>Catatan utang pelanggan</h3><p>Catat siapa yang berutang dan berapa, lalu kirim pengingat dengan satu ketukan.</p></div>
+  <div><h3>Beberapa kasir, satu toko</h3><p>Beri akses pada karyawan dan lihat siapa mencatat apa.</p></div>
  </div>
-</section>
+</div></section>
 
-<section aria-labelledby="ulasan">
+<section id="cara" style="border-top:1px solid var(--line)"><div class="wrap">
+ <h2>Mulai berjualan dengan aplikasi dalam tiga langkah</h2>
+ <p class="sub">Kebanyakan toko siap pakai di hari yang sama.</p>
+ <ol class="steps">
+  <li><h3>Daftar dan isi nama toko</h3><p>Butuh sekitar dua menit. Tanpa kartu kredit.</p></li>
+  <li><h3>Masukkan barang Anda</h3><p>Ketik satu per satu atau impor dari file Excel yang sudah ada.</p></li>
+  <li><h3>Mulai catat penjualan</h3><p>Setiap transaksi langsung mengurangi stok dan menambah laporan.</p></li>
+ </ol>
+</div></section>
+
+<section aria-labelledby="ulasan" style="border-top:1px solid var(--line)"><div class="wrap">
  <h2 id="ulasan">Kata pemilik toko yang sudah mencoba</h2>
- <div class="quotes">
+ <div class="quotes" style="margin-top:28px">
   <blockquote>“Dulu tutup toko masih harus menghitung sampai malam. Sekarang selesai dalam lima menit.”<cite>Sari, pemilik toko kelontong (contoh testimoni)</cite></blockquote>
   <blockquote>“Penjualan naik karena stok barang laris tidak pernah kosong lagi.”<cite>Budi, pemilik kedai kopi (contoh testimoni)</cite></blockquote>
+  <blockquote>“Karyawan saya langsung bisa pakai tanpa diajari lama.”<cite>Rina, pemilik toko pakaian (contoh testimoni)</cite></blockquote>
  </div>
-</section>
+</div></section>
 
+<section id="harga" style="border-top:1px solid var(--line)"><div class="wrap">
+ <h2>Harga sederhana, tanpa biaya tersembunyi</h2>
+ <p class="sub">Semua paket bisa dicoba gratis 14 hari. Batalkan kapan saja.</p>
+ <div class="plans">
+  <div class="plan"><h3>Mulai</h3><div class="price">Gratis</div><small style="color:var(--muted)">untuk toko yang baru mencoba</small>
+   <ul><li>1 pengguna</li><li>Sampai 50 barang</li><li>Laporan harian</li></ul>
+   <a class="btn ghost" href="#daftar" data-track="daftar_trial_click" id="cta-plan1">Daftar Trial</a></div>
+  <div class="plan pick"><h3>Usaha Kecil</h3><div class="price">Rp49.000 <small>/ bulan</small></div><small style="color:var(--muted)">paling banyak dipilih</small>
+   <ul><li>3 pengguna</li><li>Barang tanpa batas</li><li>Struk via WhatsApp</li><li>Catatan utang pelanggan</li></ul>
+   <a class="btn" href="#daftar" data-track="daftar_trial_click" id="cta-plan2">Daftar Trial</a></div>
+  <div class="plan"><h3>Toko Ramai</h3><div class="price">Rp99.000 <small>/ bulan</small></div><small style="color:var(--muted)">untuk beberapa cabang</small>
+   <ul><li>Pengguna tanpa batas</li><li>Sampai 3 cabang</li><li>Laporan keuntungan lengkap</li></ul>
+   <a class="btn ghost" href="#daftar" data-track="daftar_trial_click" id="cta-plan3">Daftar Trial</a></div>
+ </div>
+</div></section>
+
+<section id="faq" style="border-top:1px solid var(--line)"><div class="wrap">
+ <h2>Pertanyaan yang sering ditanyakan</h2>
+ <div style="margin-top:24px">
+  <details><summary>Apakah harus pakai kartu kredit untuk mencoba?</summary><p>Tidak. Masa coba 14 hari gratis dan tidak meminta kartu kredit.</p></details>
+  <details><summary>Bagaimana kalau internet toko saya sering putus?</summary><p>Anda tetap bisa mencatat penjualan. Data akan tersinkron otomatis saat internet kembali.</p></details>
+  <details><summary>Apakah data saya bisa dipindahkan dari Excel?</summary><p>Bisa. Anda cukup mengunggah daftar barang dari file Excel atau CSV.</p></details>
+  <details><summary>Bisakah saya berhenti kapan saja?</summary><p>Ya. Tidak ada kontrak, dan Anda bisa mengunduh data Anda sebelum berhenti.</p></details>
+ </div>
+</div></section>
+
+<div class="wrap">
 <div class="signup" id="daftar">
  <h2>Mulai coba gratis hari ini</h2>
  <p>Isi data di bawah. Kami kirim petunjuk memulai ke email Anda.</p>
@@ -113,20 +192,21 @@ footer{padding:0 0 40px;color:var(--muted);font-size:.9rem}
  </form>
  <div class="ok" id="ok" role="status">Terima kasih! Cek email Anda untuk langkah berikutnya.</div>
 </div>
+</div>
 </main>
 
-<footer>Halaman contoh (demo) untuk portofolio. Nama produk dan testimoni adalah fiktif.</footer>
-</div>
+<footer><div class="wrap">
+ <div><strong style="color:var(--ink)">Warung Pintar</strong><br>Halaman contoh (demo) untuk portofolio. Nama produk, harga, dan testimoni adalah fiktif.</div>
+ <div><a href="#fitur">Fitur</a><a href="#harga">Harga</a><a href="#faq">Tanya jawab</a></div>
+</div></footer>
 
 <script>
 window.dataLayer = window.dataLayer || [];
-// Pelacakan klik tombol "Daftar Trial" untuk Google Tag Manager
 document.querySelectorAll('[data-track]').forEach(function(el){
   el.addEventListener('click', function(){
     window.dataLayer.push({event: el.dataset.track, button_id: el.id});
   });
 });
-// Demo: validasi sederhana dan pesan sukses. Untuk produksi, hapus baris preventDefault agar Mailchimp menerima data.
 document.getElementById('trial-form').addEventListener('submit', function(e){
   e.preventDefault();
   var f = e.target;
